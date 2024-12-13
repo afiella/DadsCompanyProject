@@ -1,21 +1,20 @@
 function onEdit(e) {
-    const sourceSheetName = "Main Sheet"; // Replace with the source sheet's name
-    const targetSheetName = "Accra"; // Replace with the target sheet's name
-    const locationColumn = 6; // Replace with the actual column number for "Location"
-    const targetLocation = "Accra"; // The value that triggers the transfer
+    const sourceSheetName = "Main Sheet";
+    const targetSheetName = "Accra";
+    const locationColumn = 6;
+    const targetLocation = "Accra";
 
     const sheet = e.source.getActiveSheet();
 
-    // Check if the edit is in the correct sheet and location column
     if (sheet.getName() === sourceSheetName && e.range.getColumn() === locationColumn) {
         const locationValue = e.range.getValue();
 
-        // Proceed only if the location matches the target
+     
         if (locationValue === targetLocation) {
             const row = sheet.getRange(e.range.getRow(), 1, 1, sheet.getLastColumn()).getValues()[0];
             const targetSheet = e.source.getSheetByName(targetSheetName);
 
-            // Check for duplicates in the target sheet
+       
             const targetData = targetSheet.getDataRange().getValues();
             const isDuplicate = targetData.some(targetRow => targetRow.join() === row.join());
 
